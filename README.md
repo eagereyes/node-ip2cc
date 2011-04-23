@@ -9,7 +9,9 @@ Loading the data into memory takes a few seconds, but that only has to be done o
 Quick example:
 
 ```javascript
-lookUp('174.96.192.67', function(ipaddress, country) {
+var ip2cc = require('./ip2country');
+
+ip2cc.lookUp('174.96.192.67', function(ipaddress, country) {
 	if (country) {
 		console.log(ipaddress+': '+country);
 	} else {
@@ -20,7 +22,7 @@ lookUp('174.96.192.67', function(ipaddress, country) {
 
 ### Function lookUp(ipaddress, callback)
 
-This function performs the lookup and calls the callback, which gets two parameters: `callback(ip, cc)`, where ip is the ipaddress the way it was passed to the function, and cc is the two-letter country code if one was found, or null if not.
+This function performs the lookup and calls the callback, which gets two parameters: `callback(ip, cc)`, where ip is the ipaddress the way it was passed to the function, and cc is the two-letter country code if one was found, or null if not. In addition to the typical dot-notation string, the IP address can be a string containing the IP address as a single number, or the number itself.
 
 On the first call, `lookUp()` will initiate the IP data to be loaded from disk. Calls to `lookUp()` while the data is loading are queued, and are performed in the order in which they were received.
 

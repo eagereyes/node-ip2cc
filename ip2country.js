@@ -59,7 +59,7 @@ function loadData() {
 			callback();
 		});
 	})
-	.on('error', function(error){
+	.on('error', function(error) {
 		console.error(error.message);
 	});
 }
@@ -129,37 +129,6 @@ function listen(port) {
 	});
 }
 
-function testOut(ipaddress, country) {
-	if (country) {
-		console.log(ipaddress+': '+country);
-	} else {
-		console.log(ipaddress+' not found');
-	}
-}
+exports.lookUp = lookUp;
 
-function test() {
-	lookUp('127.0.0.1', testOut);
-
-	lookUp('174.96.192.67', function(ipaddress, country) {
-		if (country) {
-			console.log(ipaddress+': '+country);
-		} else {
-			console.log(ipaddress+' not found');
-		}
-	});
-
-	ready(function () {
-		lookUp('174.96.190.61', testOut);
-		lookUp('0.0.17.45', testOut);
-	});
-
-	ready(function() {
-		lookUp('3640291329', testOut);
-	});
-
-	ready(function() {
-		lookUp(460598268, testOut);
-	});
-
-	listen(4711);
-}
+exports.listen = listen;
