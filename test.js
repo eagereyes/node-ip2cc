@@ -1,4 +1,4 @@
-var ip2cc = require('./ip2country');
+var ip2cc = require('./ip2cc');
 
 function testOut(ipaddress, country) {
 	if (country) {

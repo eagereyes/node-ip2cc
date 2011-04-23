@@ -1,15 +1,17 @@
 ## About
 
-This program provides the means to find the country an IP address is likely used in. The program reads in a publicly available file with definitions, and performs a binary search on them. Adjacent blocks belonging to the same country are joined, which reduces the number of items by about 50%. The binary search has to perform a maximum of 16 steps, which makes lookups extremely fast.
+This program provides the means to find the two-letter country code of the country an IP address is likely used in. The program reads in a publicly available file with definitions, and performs a binary search on them. Adjacent blocks belonging to the same country are joined, which reduces the number of items by about 50%. The binary search has to perform a maximum of 16 steps, which makes lookups extremely fast.
 
-Loading the data into memory takes a few seconds, but that only has to be done once. When running as an HTTP server, requests take less than 0.3ms on a 2.5GHz MacBook Pro.
+This is meant to be used as part of a server program, or as a standalone server. Loading in the entire datafile takes a few seconds, and is therefore not the best solution if all you need is a single lookup.
+
+When running as an HTTP server, requests take less than 0.3ms on a 2.5GHz MacBook Pro.
 
 ## Usage
 
 Quick example:
 
 ```javascript
-var ip2cc = require('./ip2country');
+var ip2cc = require('./ip2cc');
 
 ip2cc.lookUp('174.96.192.67', function(ipaddress, country) {
 	if (country) {

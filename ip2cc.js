@@ -1,5 +1,5 @@
 //
-// ip2country.js
+// ip2cc.js
 //
 // Copyright (c) 2011, Robert Kosara <rkosara@me.com>
 // 
