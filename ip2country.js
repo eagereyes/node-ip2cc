@@ -6,12 +6,16 @@ var ipList = [];
 
 function lookUp(ipaddress, callback) {
 	var address;
-	if (ipaddress.indexOf('.') >= 0) {
-		var bytes = ipaddress.split('.');
-		address = parseInt(bytes[0], 10)*16777216 + parseInt(bytes[1], 10)*65536 +
-					parseInt(bytes[2], 10)*256 + parseInt(bytes[3], 10);
+	if (typeof(ipaddress) === 'number') {
+		address = ipaddress;
 	} else {
-		address = parseInt(ipaddress, 10);
+		if (ipaddress.indexOf('.') >= 0) {
+			var bytes = ipaddress.split('.');
+			address = parseInt(bytes[0], 10)*16777216 + parseInt(bytes[1], 10)*65536 +
+						parseInt(bytes[2], 10)*256 + parseInt(bytes[3], 10);
+		} else {
+			address = parseInt(ipaddress, 10);
+		}
 	}
 	var bottom = 0;
 	var top = ipList.length-1;
@@ -28,14 +32,6 @@ function lookUp(ipaddress, callback) {
 		callback(ipaddress, ipList[mid].cc);
 	} else {
 		callback(ipaddress, null);
-	}
-}
-
-function testOut(ipaddress, country) {
-	if (country) {
-		console.log(ipaddress+': '+country);
-	} else {
-		console.log(ipaddress+' not found');
 	}
 }
 
@@ -65,14 +61,24 @@ function loadData(callback) {
 		}
 	})
 	.on('end', function(count) {
-		console.log(count+' lines, '+ipList.length+' entries.');
-		lookUp('174.96.190.61', testOut);
-		lookUp('3640291329', testOut);
+		callback();
 	})
 	.on('error', function(error){
 		console.error(error.message);
 	});
 }
 
-loadData();
+function testOut(ipaddress, country) {
+	if (country) {
+		console.log(ipaddress+': '+country);
+	} else {
+		console.log(ipaddress+' not found');
+	}
+}
+
+loadData(function() {
+	lookUp('174.96.190.61', testOut);
+	lookUp('3640291329', testOut);
+	lookUp(460598268, testOut);
+});
 
