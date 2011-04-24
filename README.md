@@ -6,12 +6,16 @@ This is meant to be used as part of a server program, or as a standalone server.
 
 Trading memory for speed pays off, however: when running as an HTTP server, requests take less than 0.3ms on both a 2.5GHz MacBook Pro and a _Linode 768_ virtual private server. The in-memory cache requires about 8MB of real memory when running on Mac OS X in 64-bit mode node (and roughly the same in 32-bit mode on Linux). This was tested by comparing the amount of memory used by the _Hello World_ example on the [node.js website](http://nodejs.org/) with the ip2cc server invoked by the `listen()` function.
 
+## Installation
+
+``npm install ip2cc``
+
 ## Usage
 
 Quick example:
 
 ```javascript
-var ip2cc = require('./ip2cc');
+var ip2cc = require('ip2cc');
 
 ip2cc.lookUp('174.96.192.67', function(ipaddress, country) {
 	if (country) {
