@@ -62,7 +62,7 @@ function loadData() {
 
 loadData();
 
-// check for overlapping IP range blocks
+console.log('Checking for overlapping IP range blocks ...')
 for (var i = 1; i < ipList.length; i++) {
 	if (ipList[i].start < ipList[i-1].end) {
 		console.log('block '+ipList[i-1].start+'-'+ipList[i-1].end+'/'+ipList[i-1].cc+' contains '+ipList[i].cc);
