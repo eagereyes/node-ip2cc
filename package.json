@@ -1,7 +1,7 @@
 {
   "name": "ip2cc",
   "description": "Efficiently convert IP addresses to two-letter country codes",
-  "version": "0.9.0",
+  "version": "0.9.1",
   "repository": {
     "type": "git",
     "url": "git://github.com/eagereyes/node-ip2cc.git"
@@ -11,10 +11,7 @@
   "directories": {
     "lib": "."
   },
-  "files": ["ip2cc.js", "IpToCountry.csv"],
-  "dependencies": {
-    "csv": "0.0.9"	
-  },
+  "files": ["ip2cc.js", "ipccdata.json"],
   "engines": {
     "node": ">=v0.4.0"
   }
