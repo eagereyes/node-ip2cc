@@ -51,7 +51,11 @@ The country codes returned are [two-letter ISO 3166 codes](http://en.wikipedia.o
 * PS - Palestinian Territory, Occupied
 * UK - United Kingdom (standard says GB)
 
+<<<<<<< HEAD
 This program does not return the `ZZ` code for IETF reserved IP spaces; instead, those are reported as 'not found.' Since they are unlikely to occur, and `ZZ` would be just another special case to handle, I decided to ignore them on import (thus also slightly reducing the amount of memory used).
+=======
+This program does not return the `ZZ` code for IETF reserved IP spaces, instead, those are reported as 'not found.' Since they are unlikely to occur, and `ZZ` would be just another special case to handle, I decided to ignore them on import (thus also slightly reducing the amount of memory used).
+>>>>>>> f4b64a7a0012eacc604731a26435b74a6ba08c17
 
 ## Dependencies
 
