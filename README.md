@@ -4,7 +4,7 @@ This program provides the means to find the two-letter country code of the count
 
 This is meant to be used as part of a server program, or as a standalone server. Loading in the entire datafile takes a few seconds, and is therefore not the best solution if all you need is a single lookup.
 
-When running as an HTTP server, requests take less than 0.3ms on a 2.5GHz MacBook Pro.
+Trading memory for speed pays off, however: when running as an HTTP server, requests take less than 0.3ms on both a 2.5GHz MacBook Pro and a _Linode 768_ virtual private server. The in-memory cache requires about 8MB of real memory when running on Mac OS X in 64-bit mode node (and roughly the same in 32-bit mode on Linux). This was tested by comparing the amount of memory used by the _Hello World_ example on the [node.js website](http://nodejs.org/) with the ip2cc server invoked by the `listen()` function.
 
 ## Usage
 
@@ -38,6 +38,20 @@ Creates a simple server process that listens on `port` for requests and returns 
 	"cc":"US"
 }
 ```
+
+## Country Codes
+
+The country codes returned are [two-letter ISO 3166 codes](http://en.wikipedia.org/wiki/ISO_3166), which are the same ones as used for international top-level domain names (ccTLDs); with the following exceptions, however (taken from the header of the `IpToCountry.csv` file):
+
+* AP - non-specific Asia-Pacific location
+* CS - Serbia and Montenegro
+* YU - Serbia and Montenegro (Formally Yugoslavia) (Being phased out)
+* EU - non-specific European Union location
+* FX - France, Metropolitan
+* PS - Palestinian Territory, Occupied
+* UK - United Kingdom (standard says GB)
+
+This program does not return the `ZZ` code for IETF reserved IP spaces, instead, those are reported as 'not found.' Since they are unlikely to occur, and `ZZ` would be just another special case to handle, I decided to ignore them on import (thus also slightly reducing the amount of memory used).
 
 ## Dependencies
 

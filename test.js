@@ -22,4 +22,4 @@ ip2cc.lookUp('3640291329', testOut);
 
 ip2cc.lookUp(460598268, testOut);
 
-ip2cc.listen(4711);
+//ip2cc.listen(4711);
