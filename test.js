@@ -1,4 +1,5 @@
-var ip2cc = require('./ip2cc');
+var ip2cc = require('ip2cc');
+var util = require('util');
 
 function testOut(ipaddress, country) {
 	if (country) {
@@ -21,5 +22,9 @@ ip2cc.lookUp('127.0.0.1', testOut);
 ip2cc.lookUp('3640291329', testOut);
 
 ip2cc.lookUp(460598268, testOut);
+
+// ip2cc.lookUp('127.0.0.1', function() {
+// 	console.log(util.inspect(process.memoryUsage()));
+// });
 
 //ip2cc.listen(4711);

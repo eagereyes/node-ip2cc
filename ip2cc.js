@@ -17,6 +17,7 @@
 
 var csv = require('csv');
 var http = require('http');
+var path = require('path');
 
 var FILENAME = 'IpToCountry.csv';
 
@@ -31,7 +32,7 @@ var callbacks = [];
 function loadData() {
 	loading = true;
 	csv()
-	.fromPath(FILENAME).transform(function(data) {
+	.fromPath(path.join(__dirname, FILENAME)).transform(function(data) {
 		if (data[0][0] != '#') {
 			return data;
 		} else {
