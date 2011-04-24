@@ -23,6 +23,8 @@ ip2cc.lookUp('3640291329', testOut);
 
 ip2cc.lookUp(460598268, testOut);
 
+console.log('numeric IP 460598268 is located in '+ip2cc.lookUp(460598268));
+
 // ip2cc.lookUp('127.0.0.1', function() {
 // 	console.log(util.inspect(process.memoryUsage()));
 // });

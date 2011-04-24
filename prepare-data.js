@@ -1,5 +1,5 @@
 //
-// ip2cc.js
+// prepare-data.js
 //
 // Copyright (c) 2011, Robert Kosara <rkosara@me.com>
 // 

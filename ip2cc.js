@@ -19,55 +19,63 @@ var http = require('http');
 var path = require('path');
 var fs = require('fs');
 
-var JSONFILENAME = 'ipccdata.json';
+(function() {
+	var JSONFILENAME = 'ipccdata.json';
 
-var ipList;
+	var ipList;
 
-function lookUp(ipaddress, callback) {
-	var address;
-	if (typeof(ipaddress) === 'number') {
-		address = ipaddress;
-	} else {
-		if (ipaddress.indexOf('.') >= 0) {
-			var bytes = ipaddress.split('.');
-			address = parseInt(bytes[0], 10)*16777216 + parseInt(bytes[1], 10)*65536 +
-						parseInt(bytes[2], 10)*256 + parseInt(bytes[3], 10);
+	function lookUp(ipaddress, callback) {
+		var address;
+		if (typeof(ipaddress) === 'number') {
+			address = ipaddress;
 		} else {
-			address = parseInt(ipaddress, 10);
+			if (ipaddress.indexOf('.') >= 0) {
+				var bytes = ipaddress.split('.');
+				address = parseInt(bytes[0], 10)*16777216 + parseInt(bytes[1], 10)*65536 +
+							parseInt(bytes[2], 10)*256 + parseInt(bytes[3], 10);
+			} else {
+				address = parseInt(ipaddress, 10);
+			}
+		}
+		var bottom = 0;
+		var top = ipList.length-1;
+		var mid = 0;
+		do {
+			mid = Math.floor((bottom+top)/2);
+			if (address > ipList[mid].end) {
+				bottom = mid + 1;
+			} else {
+				top = mid - 1;
+			}
+		} while (!(address >= ipList[mid].start && address <= ipList[mid].end) && (top >= bottom));
+		if (address >= ipList[mid].start && address <= ipList[mid].end) {
+			if (callback) {
+				callback(ipaddress, ipList[mid].cc);
+			}
+			return ipList[mid].cc;
+		} else {
+			if (callback) {
+				callback(ipaddress, null);
+			}
+			return null;
 		}
 	}
-	var bottom = 0;
-	var top = ipList.length-1;
-	var mid = 0;
-	do {
-		mid = Math.floor((bottom+top)/2);
-		if (address > ipList[mid].end) {
-			bottom = mid + 1;
-		} else {
-			top = mid - 1;
-		}
-	} while (!(address >= ipList[mid].start && address <= ipList[mid].end) && (top >= bottom));
-	if (address >= ipList[mid].start && address <= ipList[mid].end) {
-		callback(ipaddress, ipList[mid].cc);
-	} else {
-		callback(ipaddress, null);
+
+	function listen(port) {
+		http.createServer(function (req, res) {
+			lookUp(req.url.substring(1), function(ip, cc) {
+				res.writeHead(200, {'Content-Type': 'application/json'});
+				res.end(JSON.stringify({
+					ip: ip,
+					cc: cc
+				}));
+			});
+		}).listen(port, '127.0.0.1');
 	}
-}
 
-function listen(port) {
-	http.createServer(function (req, res) {
-		lookUp(req.url.substring(1), function(ip, cc) {
-			res.writeHead(200, {'Content-Type': 'application/json'});
-			res.end(JSON.stringify({
-				ip: ip,
-				cc: cc
-			}));
-		});
-	}).listen(port, '127.0.0.1');
-}
+	ipList = JSON.parse(fs.readFileSync(path.join(__dirname, JSONFILENAME), 'utf8'));
 
-ipList = JSON.parse(fs.readFileSync(path.join(__dirname, JSONFILENAME), 'utf8'));
+	exports.lookUp = lookUp;
 
-exports.lookUp = lookUp;
-
-exports.listen = listen;
+	exports.listen = listen;
+})();
