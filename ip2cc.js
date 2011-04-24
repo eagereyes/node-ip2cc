@@ -55,9 +55,9 @@ function loadData() {
 	})
 	.on('end', function(count) {
 		initialized = true;
-		callbacks.forEach(function(callback) {
-			callback();
-		});
+		while (callbacks.length > 0) {
+			callbacks.pop()();
+		}
 	})
 	.on('error', function(error) {
 		console.error(error.message);
@@ -68,7 +68,7 @@ function ready(callback) {
 	if (initialized) {
 		callback();
 	} else {
-		callbacks.push(callback);
+		callbacks.unshift(callback);
 		if (!loading) {
 			loadData();
 		}
