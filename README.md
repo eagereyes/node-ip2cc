@@ -24,6 +24,8 @@ ip2cc.lookUp('174.96.192.67', function(ipaddress, country) {
 		console.log(ipaddress+' not found');
 	}
 });
+
+console.log('IP 174.96.192.67 is located in '+ip2cc.lookUp('174.96.192.67'));
 ```
 
 ### Function lookUp(ipaddress, [callback])
