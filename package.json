@@ -6,6 +6,9 @@
     "type": "git",
     "url": "git://github.com/eagereyes/node-ip2cc.git"
   },
+  "dependencies": {
+    "csv": "0.1.0"
+  },
   "author": "Robert Kosara <rkosara@me.com> (http://eagereyes.org/)",
   "main": "ip2cc",
   "directories": {
