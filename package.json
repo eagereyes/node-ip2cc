@@ -9,6 +9,9 @@
   "dependencies": {
     "csv": "0.1.0"
   },
+  "scripts": {
+    "postinstall": "build.sh"
+  },
   "author": "Robert Kosara <rkosara@me.com> (http://eagereyes.org/)",
   "main": "ip2cc",
   "directories": {
